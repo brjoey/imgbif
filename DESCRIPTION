@@ -1,0 +1,25 @@
+Package: imgbif
+Type: Package
+Title: Pre-process or write images from GBIF multimedia files.
+Version: 0.1.0
+Author: Brenton Bruns
+Maintainer: Brenton Bruns <brenton.joey.bruns@wirtschaft.uni-giessen.de>
+Description: This package allows for the pre-processing of multimedia files obtained from GBIF database downloads.
+    Additionally, the package offers functionality for downloading images utilizing parallel processing for enhanced efficiency.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Depends: 
+    R (>= 2.10)
+Imports: 
+    doParallel,
+    foreach,
+    httr,
+    magick,
+    parallelly,
+    rvest,
+    stringr
