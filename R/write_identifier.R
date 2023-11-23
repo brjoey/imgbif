@@ -31,7 +31,7 @@ write_identifier <- function(multimedia,
           read.csv2(multimedia, sep = "\t", na.strings = "", quote = "")
         })
         if (is(multimedia, "try-error")) {
-          stop("Could not find provided path (multimedia):", multimedia)
+          stop("Could not find provided path (multimedia): ", multimedia)
         }
       }
     }
@@ -61,7 +61,7 @@ write_identifier <- function(multimedia,
 
   URL_list <- multimedia$identifier
 
-  results <- foreach::foreach(URL = URL_list, .packages = c("httr", "rvest", "magick")) %dopar% {
+  foreach_list <- foreach::foreach(URL = URL_list, .packages = c("httr", "rvest", "magick")) %dopar% {
     index_ua <- round(runif(1, min = 1, max = length(useragent)))
     ua <- httr::user_agent(useragent[index_ua])
     session_with_ua <- try({
@@ -85,7 +85,11 @@ write_identifier <- function(multimedia,
           )
           try(
             {
+              feather_files <- list.files(path = destDir, pattern = "\\.feather$")
+              files <- stringr::str_remove(feather_files, ".feather")
+              str_detect_sum <- sum(stringr::str_detect(files, multimedia[which(multimedia$identifier == URL), "gbifID"]))
               if ("label" %in% names(multimedia)) {
+                if (str_detect_sum == 0) {
                 image_path <- file.path(
                   destDir,
                   paste0(
@@ -96,17 +100,45 @@ write_identifier <- function(multimedia,
                     format
                   )
                 )
-              } else {
-                image_path <- file.path(
-                  destDir,
-                  paste0(
-                    multimedia[which(multimedia$identifier == URL), "gbifID"],
-                    ".",
-                    format
+                } else {
+                  image_path <- file.path(
+                    destDir,
+                    paste0(
+                      multimedia[which(multimedia$identifier == URL), "gbifID"],
+                      "_",
+                      multimedia[which(multimedia$identifier == URL), "label"],
+                      " (",
+                      (str_detect_sum + 1),
+                      " )",
+                      ".",
+                      format
+                    )
                   )
-                )
+                }
+              } else {
+                if (str_detect_sum == 0) {
+                  image_path <- file.path(
+                    destDir,
+                    paste0(
+                      multimedia[which(multimedia$identifier == URL), "gbifID"],
+                      ".",
+                      format
+                    )
+                  )
+                } else {
+                  image_path <- file.path(
+                    destDir,
+                    paste0(
+                      multimedia[which(multimedia$identifier == URL), "gbifID"],
+                      " (",
+                      (str_detect_sum + 1),
+                      " )",
+                      ".",
+                      format
+                    )
+                  )
+                }
               }
-              print(image_path)
               magick::image_write(img,
                 path = image_path
               )
@@ -119,7 +151,7 @@ write_identifier <- function(multimedia,
   }
   doParallel::stopImplicitCluster()
 
-  successful <- length(results)
+  successful <- length(foreach_list)
   nrow0 <- nrow(multimedia)
   message(successful, " of ", nrow0, " images created.")
 }
