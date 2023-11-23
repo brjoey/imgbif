@@ -6,7 +6,7 @@
 
 ## About
 
-Pre-process and write images from GBIF multimedia files.
+Pre-process and write images from GBIF multimedia files and classify them manually with a Shiny app.
 
 ------------------------------------------------------------------------
 
@@ -16,21 +16,25 @@ Pre-process and write images from GBIF multimedia files.
 
 ### Install
 
-Install the package `devtools` if not already done. install.packages("devtools").
-
-Use `devtools::install_git()` to install the package from the link to the github repository ("https://github.com/brjoey/imgbif.git").
+Install the package `devtools` if not already done.
 
 ```         
-devtools::install_git("https://github.com/brjoey/imgbif.git")
+install.packages("devtools").
+```
+
+Use `devtools::install_git()` to install the package from the link to the github repository ("https://github.com/brjoey/imgbif.app.git").
+
+```         
+devtools::install_git("https://github.com/brjoey/imgbif.app.git")
 ```
 
 ### Use
 
-The prerequisite is that you have already downloaded a data set from the GBIF database.
+The prerequisite is that you have already downloaded a data set from the [GBIF database](https://www.gbif.org/) directly or with the [rgbif](https://www.gbif.org/tool/81747/rgbif) R package.
 
 #### Pre-process
 
-You can use the `prepr_multimedia()` function to prepare the data set for classification with the classification app. The pre-processing consists of removing occurrences that either do not have a gbidID or do not contain a link to an image. In addition, URLs to images in the inaturalis database are processed. Optionally, images from Herbarium databases can be removed, provided that the downloaded records are complete. In addition, you can select whether and which licences are to be removed.
+The `preprocess_multimedia` function can be used to prepare the multimedia file for classification with the classification app. consists of removing occurrences that either do not have a gbidID (occurrence ID) or do not contain a link to an image. In addition, URLs to images in the iNaturalist database are repaired if necessary. Optionally, if the downloaded occurrence file includes publisher information, images from Herbarium databases can be removed. In addition, it is possible to select whether and which licences are to be removed. Possible arguments are 'all rights reserved', 'by-sa', 'by-nc', 'not applicable (NA)', and 'unclear'. By default, 'all rights reserved' and 'unclear'.
 
 ```         
 imgbif::preprocess_multimedia(multimedia = path/to/multimedia/file OR data frame,

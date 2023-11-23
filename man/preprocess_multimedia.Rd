@@ -8,13 +8,13 @@ preprocess_multimedia(
   multimedia,
   occurrence,
   herbarium.rm = TRUE,
-  license.rm = c("all rights reserved", "unclear")
+  license.rm = c("all rights reserved", "by-sa", "by-nc", "NA", "unclear")
 )
 }
 \arguments{
-\item{multimedia}{A `data.frame` containing the multimedia data or the path to the multimedia file (multimedia.txt).}
+\item{multimedia}{A `data.frame` containing the multimedia data or the path to the multimedia file (with the extension "txt", "csv", or "feather").}
 
-\item{occurrence}{A `data.frame` containing the occurrence data or the path to the occurrence file (occurrence.txt).}
+\item{occurrence}{A `data.frame` containing the occurrence data or the path to the occurrence file (with the extension "txt", "csv", or "feather").}
 
 \item{herbarium.rm}{A `boolean` indicating whether to remove Herbarium database records (the default is `TRUE`). When set to `FALSE`, Herbarium data is retained.}
 

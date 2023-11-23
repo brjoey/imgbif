@@ -9,7 +9,12 @@
 #'
 #' @return A `data.frame` with records filtered according to the specified license criteria.
 remove_license <- function(m.df = multimedia.df,
-                           license = license.rm) {
+                           license = c("all rights reserved", "by-sa", "by-nc", "NA", "unclear")
+                           ) {
+
+  license <- match.arg(license)
+
+
   if (!"license" %in% names(m.df)) {
     stop("The data frame does not contain a 'license' column.")
   }

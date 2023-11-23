@@ -4,7 +4,10 @@
 \alias{remove_license}
 \title{Remove gbifIDs with Specified Licenses from Multimedia Data Frame}
 \usage{
-remove_license(m.df = multimedia.df, license = license.rm)
+remove_license(
+  m.df = multimedia.df,
+  license = c("all rights reserved", "by-sa", "by-nc", "NA", "unclear")
+)
 }
 \arguments{
 \item{m.df}{A `data.frame` containing multimedia data.}
