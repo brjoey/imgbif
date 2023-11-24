@@ -34,7 +34,7 @@ The prerequisite is that you have already downloaded a data set from the [GBIF d
 
 #### Pre-process
 
-The `preprocess_multimedia` function can be used to prepare the multimedia file for classification with the classification app. consists of removing occurrences that either do not have a gbidID (occurrence ID) or do not contain a link to an image. In addition, URLs to images in the iNaturalist database are repaired if necessary. Optionally, if the downloaded occurrence file includes publisher information, images from Herbarium databases can be removed. In addition, it is possible to select whether and which licences are to be removed. Possible arguments are 'all rights reserved', 'by-sa', 'by-nc', 'not applicable (NA)', and 'unclear'. By default, 'all rights reserved' and 'unclear'.
+The `preprocess_multimedia` function can be used to prepare the multimedia file for classification with the classification app. The pre-processing consists of removing occurrences that either do not have a gbidID (occurrence ID) or do not contain a link to an image. In addition, URLs to images in the iNaturalist database are repaired if necessary. Optionally, if the downloaded occurrence file includes publisher information, images from Herbarium databases can be removed. In addition, it is possible to select whether and which licences are to be removed. Possible arguments are 'all rights reserved', 'by-sa', 'by-nc', 'NA', and 'unclear'.
 
 ```         
 imgbif::preprocess_multimedia(multimedia = path/to/multimedia/file OR data frame,
@@ -44,7 +44,7 @@ imgbif::preprocess_multimedia(multimedia = path/to/multimedia/file OR data frame
                         )
 ```
 
-See the help file for more information about `prepr_multimedia`.
+See the help file for more information about `preprocess_multimedia`.
 
 ```         
 ?preprocess_multimedia

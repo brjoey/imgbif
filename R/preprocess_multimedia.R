@@ -6,7 +6,7 @@
 #' @param multimedia A `data.frame` containing the multimedia data or the path to the multimedia file (with the extension "txt", "csv", or "feather").
 #' @param occurrence A `data.frame` containing the occurrence data or the path to the occurrence file (with the extension "txt", "csv", or "feather").
 #' @param herbarium.rm A `boolean` indicating whether to remove Herbarium database records (the default is `TRUE`). When set to `FALSE`, Herbarium data is retained.
-#' @param license.rm A `character vector` specifying the license types to be excluded. Common licenses include 'all rights reserved', 'by-sa', 'by-nc', 'not applicable (NA)', and 'unclear'. By default, 'all rights reserved' and 'unclear' are excluded.
+#' @param license.rm A `character vector` specifying the license types to be excluded. Common licenses include 'all rights reserved', 'by-sa', 'by-nc', 'NA', and 'unclear'.
 #'
 #' @return A `data.frame` containing the pre-processed multimedia data.
 #' @export
