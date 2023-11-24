@@ -22,10 +22,10 @@ Install the package `devtools` if not already done.
 install.packages("devtools").
 ```
 
-Use `devtools::install_git()` to install the package from the link to the github repository ("https://github.com/brjoey/imgbif.app.git").
+Use `devtools::install_git()` to install the package from the link to the github repository ("https://github.com/brjoey/imgbif.git").
 
 ```         
-devtools::install_git("https://github.com/brjoey/imgbif.app.git")
+devtools::install_git("https://github.com/brjoey/imgbif.git")
 ```
 
 ### Use
@@ -65,4 +65,35 @@ See the help file for more information about `write_identifier`.
 
 ```         
 ?write_identifier
+```
+#### setup the classification app
+
+The app, launched with `setup_app`, enables manual classification of images from URLs in a GBIF multimedia file. The argument __"multimedia"__ requires a path to the GBIF multimedia file (with one of the following extensions: "txt", "csv", or "feather") or a `data.frame`/`tibble`.
+
+However, it is recommended to pre-process the multimedia file. This can be done, for example, with the function `imgbif::preprocess_multimedia`. The pre-processing with `imgbif::preprocess_multimedia` consists of removing occurrences that either do not have a gbidID (occurrence ID) or do not contain a link to an image. In addition, URLs to images in the iNaturalist database are repaired if necessary. Optionally, if the downloaded occurrence file includes publisher information, images from Herbarium databases can be removed. In addition, it is possible to select whether and which licences are to be removed.
+
+By default, the argument __"classSize"__ is set to 100 and accepts any integer __"classSize"__ is used to show the number of images that where already assigned to each class (label).
+
+__"label"__ takes a `character vector` as an input. This `vector` should include the names of the different classes that will be used to classify the data set. The elements of that `vector` are also used to label the check boxes ("multi_label = TRUE) or action buttons ("multi_label = FALSE") in the Shiny app. It is therefore recommended to use short but precise label.
+
+It is possible to assign either one label or multiple label to one image, this depends on the argument __"multi_label"__. By default, __"multi_label"__ is set to `FALSE`, hence, it is only possible to assign one label to each image by default.
+
+The app writes a file with the name "multimedia.feather" into the __"backupDir"__. This file is always created when a backup is made as well as when the app is closed. The file contains the multimedia file, to which the column "label" has been merged and which contains the assigned label. Regardless of the __"multi_label"__ setting, the assigned label will always be stored as a `character vector` in the respective cell of the "label" column. The backup file has the format feather, which can be read in both R and Python. The feather format is faster in comparison to functions that read or write csv files. It is not recommended to use the feather format for long term storage. Read more about the feather format [here](https://posit.co/blog/feather/). The setup_app function automatically identifies the first unlabeled image (where label == "NA") to resume processing if the app was previously closed. It is required to us the "multimedia.feather" file in order to proceed the labeling process.
+
+The app also writes a backup automatically into the __"backupDir"__. By default every minute. The backup interval can be adjusted (in minutes) with the argument __"backupInterval"__ which takes an `integer` as an input.
+
+```         
+imgbif::setup_app(multimedia = multimedia,
+                  classSize = 100,
+                  label = c("flowering", "fruiting"),
+                  multi_label = FALSE,
+                  backupDir = "path/to/destination directoy",
+                  backupInterval = 1
+                 )
+```
+
+See the help file for more information about `setup_app`.
+
+```         
+?setup_app
 ```
