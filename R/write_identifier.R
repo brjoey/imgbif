@@ -85,9 +85,9 @@ write_identifier <- function(multimedia,
           )
           try(
             {
-              feather_files <- list.files(path = destDir, pattern = "\\.feather$")
+              feather_files <- list.files(path = destDir, pattern = paste0("\\.", format, "$"))
               files <- stringr::str_remove(feather_files, ".feather")
-              str_detect_sum <- sum(stringr::str_detect(files, multimedia[which(multimedia$identifier == URL), "gbifID"]))
+              str_detect_sum <- sum(stringr::str_detect(files, as.character(multimedia[which(multimedia$identifier == URL), "gbifID"])))
               if ("label" %in% names(multimedia)) {
                 if (str_detect_sum == 0) {
                 image_path <- file.path(
