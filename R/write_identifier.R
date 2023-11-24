@@ -109,7 +109,7 @@ write_identifier <- function(multimedia,
                       multimedia[which(multimedia$identifier == URL), "label"],
                       " (",
                       (str_detect_sum + 1),
-                      " )",
+                      ")",
                       ".",
                       format
                     )
@@ -132,7 +132,7 @@ write_identifier <- function(multimedia,
                       multimedia[which(multimedia$identifier == URL), "gbifID"],
                       " (",
                       (str_detect_sum + 1),
-                      " )",
+                      ")",
                       ".",
                       format
                     )
