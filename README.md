@@ -106,5 +106,9 @@ See the help file for more information about `imgbif_app`.
 ```
 In case of __"multi_label = TRUE"__ the user interface of the app looks like that (with the choice between the labels of __"label"__):
 
+![](images/Screenshot_App_multi_label=TRUE.png)
+
 
 In case of __"multi_label = FALSE"__ the user interface of the app looks like that (with the action buttons labeled according to __"label"__):
+
+![](images/Screenshot_App_multi_label=FALSE.png)
