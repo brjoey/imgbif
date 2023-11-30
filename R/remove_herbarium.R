@@ -16,7 +16,7 @@ remove_herbarium <- function(m.df = multimedia,
     warning("The 'publisher' column contains only NA values. No Herbarium publishers removed.")
   }
 
-  if (anyNA(o.df$publisher)) {
+  if (!all(is.na(o.df$publisher)) && anyNA(o.df$publisher)) {
     warning("The 'publisher' column contains NA values which will be ignored.")
   }
 

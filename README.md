@@ -19,7 +19,7 @@ Pre-process and write images from GBIF multimedia files and classify them manual
 Install the package `devtools` if not already done.
 
 ```         
-install.packages("devtools").
+install.packages("devtools")
 ```
 
 Use `devtools::install_git()` to install the package from the link to the github repository ("https://github.com/brjoey/imgbif.git").
@@ -68,7 +68,7 @@ See the help file for more information about `write_identifier`.
 ```
 #### setup the classification app
 
-The app, launched with `setup_app`, enables manual classification of images from URLs in a GBIF multimedia file. The argument __"multimedia"__ requires a path to the GBIF multimedia file (with one of the following extensions: "txt", "csv", or "feather") or a `data.frame`/`tibble`.
+The app, launched with `imgbif_app`, enables manual classification of images from URLs in a GBIF multimedia file. The argument __"multimedia"__ requires a path to the GBIF multimedia file (with one of the following extensions: "txt", "csv", or "feather") or a `data.frame`/`tibble`.
 
 However, it is recommended to pre-process the multimedia file. This can be done, for example, with the function `imgbif::preprocess_multimedia`. The pre-processing with `imgbif::preprocess_multimedia` consists of removing occurrences that either do not have a gbidID (occurrence ID) or do not contain a link to an image. In addition, URLs to images in the iNaturalist database are repaired if necessary. Optionally, if the downloaded occurrence file includes publisher information, images from Herbarium databases can be removed. In addition, it is possible to select whether and which licences are to be removed.
 
@@ -83,7 +83,7 @@ The app writes a file with the name "multimedia.feather" into the __"backupDir"_
 The app also writes a backup automatically into the __"backupDir"__. By default every minute. The backup interval can be adjusted (in minutes) with the argument __"backupInterval"__ which takes an `integer` as an input.
 
 ```         
-imgbif::setup_app(multimedia = multimedia,
+imgbif::imgbif_app(multimedia = multimedia,
                   classSize = 100,
                   label = c("flowering", "fruiting"),
                   multi_label = FALSE,
@@ -92,8 +92,8 @@ imgbif::setup_app(multimedia = multimedia,
                  )
 ```
 
-See the help file for more information about `setup_app`.
+See the help file for more information about `imgbif_app`.
 
 ```         
-?setup_app
+?imgbif_app
 ```
