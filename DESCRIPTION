@@ -1,11 +1,12 @@
 Package: imgbif
 Type: Package
-Title: Pre-process or write images from GBIF multimedia files.
+Title: Pre-process and write images from GBIF multimedia files and classify them manually with a Shiny app.
 Version: 0.1.0
 Author: Brenton Bruns
 Maintainer: Brenton Bruns <brenton.joey.bruns@wirtschaft.uni-giessen.de>
 Description: This package allows for the pre-processing of multimedia files obtained from GBIF database downloads.
     Additionally, the package offers functionality for downloading images utilizing parallel processing for enhanced efficiency.
+    Moreover, the images can be manually classified with a Shiny app.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
