@@ -22,7 +22,7 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' setup_app(
+#' imgbif_app(
 #'   multimedia = "path/to/multimedia.txt",
 #'   classSize = 100,
 #'   label = c("flowering", "fruiting"),
@@ -31,7 +31,7 @@
 #'   backupInterval = 1
 #' )
 #' }
-setup_app <- function(multimedia,
+imgbif_app <- function(multimedia,
                       classSize = 100,
                       label,
                       multi_label = FALSE,
