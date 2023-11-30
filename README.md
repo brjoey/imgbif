@@ -1,5 +1,3 @@
-# **Please do not use. Still under development.**
-
 # imgbif
 
 ------------------------------------------------------------------------
@@ -32,16 +30,25 @@ devtools::install_git("https://github.com/brjoey/imgbif.git")
 
 The prerequisite is that you have already downloaded a data set from the [GBIF database](https://www.gbif.org/) directly or with the [rgbif](https://www.gbif.org/tool/81747/rgbif) R package.
 
+The folder content of such download from the [GBIF database](https://www.gbif.org/) should look like that:
+
+![](images/Screenshot_GBIF_download_folder.png)
+
+
+The relevant text files, namely "multimedia" and "occurrence" are highlighted in blue. This are the files that contain all the necessary information that is needed in the following steps.
+
 #### Pre-process
 
-The `preprocess_multimedia` function can be used to prepare the multimedia file for classification with the classification app. The pre-processing consists of removing occurrences that either do not have a gbidID (occurrence ID) or do not contain a link to an image. In addition, URLs to images in the iNaturalist database are repaired if necessary. Optionally, if the downloaded occurrence file includes publisher information, images from Herbarium databases can be removed. In addition, it is possible to select whether and which licences are to be removed. Possible arguments are 'all rights reserved', 'by-sa', 'by-nc', 'NA', and 'unclear'.
+The `preprocess_multimedia` function can be used to prepare the multimedia file for classification with the classification app. The pre-processing consists of removing occurrences that either do not have a gbidID (occurrence ID) or do not contain a link to an image. In addition, URLs to images in the iNaturalist database are repaired if necessary. Optionally, if the downloaded occurrence file includes publisher information, images from Herbarium databases can be removed. In addition, it is possible to select whether and which licences are to be removed. Possible arguments are 'all rights reserved', 'by-sa', 'by-nc', 'NA', and 'unclear'. The Terms of use
+of GBIF with regard to Data licensing can be found [here](https://www.gbif.org/terms).
+
 
 ```         
-imgbif::preprocess_multimedia(multimedia = path/to/multimedia/file OR data frame,
-                         occurrence = path/to/occurrence_file,
-                         herbarium.rm = TRUE,
-                         license.rm = c("all rights reserved", "unclear")
-                        )
+multimedia <- imgbif::preprocess_multimedia(multimedia = path/to/multimedia/file OR data frame,
+                                                          occurrence = path/to/occurrence_file,
+                                                          herbarium.rm = TRUE,
+                                                          license.rm = c("all rights reserved", "unclear")
+                                                          )
 ```
 
 See the help file for more information about `preprocess_multimedia`.
