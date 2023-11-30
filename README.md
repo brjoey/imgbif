@@ -92,7 +92,7 @@ The app also writes a backup automatically into the __"backupDir"__. By default 
 ```         
 imgbif::imgbif_app(multimedia = multimedia,
                   classSize = 100,
-                  label = c("flowering", "fruiting"),
+                  label = c("Vegetative", "Flowering","Fruiting", "Senescent"),
                   multi_label = FALSE,
                   backupDir = "path/to/destination directoy",
                   backupInterval = 1
@@ -104,3 +104,7 @@ See the help file for more information about `imgbif_app`.
 ```         
 ?imgbif_app
 ```
+In case of __"multi_label = TRUE"__ the user interface of the app looks like that (with the choice between the labels of __"label"__):
+
+
+In case of __"multi_label = FALSE"__ the user interface of the app looks like that (with the action buttons labeled according to __"label"__):
