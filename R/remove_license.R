@@ -12,7 +12,7 @@ remove_license <- function(m.df = multimedia.df,
                            license = c("all rights reserved", "by-sa", "by-nc", "NA", "unclear")
                            ) {
 
-  license <- match.arg(license)
+  license <- match.arg(license, several.ok = TRUE)
 
 
   if (!"license" %in% names(m.df)) {
