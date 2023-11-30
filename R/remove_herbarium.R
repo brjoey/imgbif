@@ -10,10 +10,12 @@ remove_herbarium <- function(m.df = multimedia,
                              o.df = occurrence) {
   if (!"publisher" %in% names(o.df)) {
     warning("The occurrence data frame does not contain a 'publisher' column.")
+    return(m.df)
   }
 
   if (all(is.na(o.df$publisher))) {
     warning("The 'publisher' column contains only NA values. No Herbarium publishers removed.")
+    return(m.df)
   }
 
   if (!all(is.na(o.df$publisher)) && anyNA(o.df$publisher)) {
