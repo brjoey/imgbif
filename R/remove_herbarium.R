@@ -23,8 +23,11 @@ remove_herbarium <- function(m.df = multimedia,
 
   herbarium_indices <- (o.df$publisher %in% gbif_herbarium_title)
   if (sum(herbarium_indices) > 0) {
-    m.df <- m.df[!herbarium_indices, ]
-    message(sum(herbarium_indices), " Herbarium occurrences removed.")
+    remove_herbarium_gbifid_o.df <- o.df[herbarium_indices, "gbifID"]
+    nrow1 <- nrow(m.df)
+    m.df <- m.df[!(m.df$gbifID %in% remove_herbarium_gbifid_o.df), ]
+    nrow2 <- nrow1 - nrow(m.df)
+    message(sum(nrow2), " Herbarium occurrences removed.")
   }
 
   return(m.df)
