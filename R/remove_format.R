@@ -14,6 +14,6 @@ remove_format <- function(m.df = multimedia) {
   m.df <- m.df[index, ]
 
 
-  print(paste0(sum(!index), " occurences (format: application) removed."))
+  message(paste0(sum(!index), " occurences (format: application) removed."))
   m.df
 }
