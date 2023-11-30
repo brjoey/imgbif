@@ -99,9 +99,6 @@ preprocess_multimedia <- function(multimedia,
   message(sum(index2), " occurrences removed due to missing gbifID")
 
 
-  license.rm <- match.arg(license.rm)
-
-
   multimedia <- remove_license(
     m.df = multimedia,
     license = license.rm
