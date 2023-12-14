@@ -1,10 +1,9 @@
-ui <- function(label, multi_label, jscode, pbID, classSize) {
+ui.img_app <- function(label, multi_label, jscode, classSize, pbID) {
   ui <- shiny::navbarPage(
     title = "Classification App",
     id = "currentTab",
     shiny::tabPanel(
       title = "Label",
-      value = "Label",
       shiny::sidebarLayout(
         shiny::sidebarPanel(
           width = 3,
@@ -14,11 +13,6 @@ ui <- function(label, multi_label, jscode, pbID, classSize) {
               width = 6,
               htmltools::tags$b("gbifID"),
               shiny::textOutput("gbifID")
-            ),
-            shiny::column(
-              width = 6,
-              htmltools::tags$b("Date"),
-              shiny::textOutput("date")
             )
           ),
           htmltools::hr(),
@@ -58,39 +52,8 @@ ui <- function(label, multi_label, jscode, pbID, classSize) {
                 label = "Close App",
                 width = 100
               )
-            ),
-            shiny::column(
-              width = 6,
-              shiny::actionButton(
-                inputId = "backup",
-                label = "Backup",
-                width = 100
-              )
             )
-          ),
-          htmltools::hr(),
-          shiny::fluidRow(
-            width = 3,
-            shiny::column(
-              width = 6,
-              shiny::actionButton(
-                inputId = "prevImage",
-                label = "Back",
-                width = 100
-              )
-            ),
-            shiny::column(
-              width = 6,
-              shiny::actionButton(
-                inputId = "nextImage",
-                label = "Next",
-                width = 100
-              )
-            )
-          ),
-          htmltools::hr(),
-          htmltools::tags$b("Assigned Label"),
-          shiny::textOutput("assigned_label")
+          )
         ),
         shiny::mainPanel(
           width = 9,
@@ -103,7 +66,6 @@ ui <- function(label, multi_label, jscode, pbID, classSize) {
     ),
     shiny::tabPanel(
       title = "Progress",
-      value = "Progress",
       shiny::sidebarLayout(
         shiny::sidebarPanel(
           htmltools::tags$b("Number of images per class:"),

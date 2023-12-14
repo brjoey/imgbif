@@ -111,13 +111,13 @@ imgbif_app <- function(multimedia,
 
   labelId <- paste0("btn", seq_along(label))
 
-  if (firstRow == 1) {
-    pb_values <- vector(mode = "list", length = length(label))
-    pb_values <- lapply(seq_along(pb_values), function(i) {pb_values[[i]] <- 0})
-  } else {
-    pb_values <- vector(mode = "integer", length = length(label))
-    pb_values <- lapply(label, function(x) {sum(x == multimedia$label)})
-  }
+  # if (firstRow == 1) {
+  #   pb_values <- vector(mode = "list", length = length(label))
+  #   pb_values <- lapply(seq_along(pb_values), function(i) {pb_values[[i]] <- 0})
+  # } else {
+  #   pb_values <- vector(mode = "integer", length = length(label))
+  #   pb_values <- lapply(label, function(x) {sum(x == multimedia$label)})
+  # }
 
 
   static_labelBtn <- c("exclude", "backup", "lastImage", "nextImage")
