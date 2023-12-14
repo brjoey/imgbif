@@ -116,6 +116,6 @@ In case of __"multi_label = FALSE"__ the user interface of the app looks like th
 
 ![](images/Screenshot_App_multi_label=FALSE.png)
 
-***
+
 Rights holder of image in displayed screenhots: Beate & Heinz Beyerlein (CC BY-NC); https://www.inaturalist.org/photos/1790518
-***
+
