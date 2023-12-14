@@ -136,11 +136,11 @@ imgbif_app <- function(multimedia,
   image_cache <- vector(mode = "list", length = 1)
 
 
-  ui <- ui(
+  ui <- ui.imgbif_app(
     label = label, multi_label = multi_label, jscode = jscode,
     pbID = pbID, classSize = classSize
   )
-  server <- server(
+  server <- server.imgbif_app(
     firstRow = firstRow, nRow = nRow, labelBtn = labelBtn,
     multimedia = multimedia, identifier_label = identifier_label,
     backupDir = backupDir, classSize = classSize,

@@ -1,4 +1,4 @@
-ui <- function(label, multi_label, jscode, pbID, classSize) {
+ui.imgbif_app <- function(label, multi_label, jscode, pbID, classSize) {
   ui <- shiny::navbarPage(
     title = "Classification App",
     id = "currentTab",
