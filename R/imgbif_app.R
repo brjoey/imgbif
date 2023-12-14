@@ -145,7 +145,7 @@ imgbif_app <- function(multimedia,
     multimedia = multimedia, identifier_label = identifier_label,
     backupDir = backupDir, classSize = classSize,
     labelId = labelId, label = label,
-    backupInterval = backupInterval, pb_values = pb_values,
+    backupInterval = backupInterval,# pb_values = pb_values,
     multi_label = multi_label, pbID = pbID, image_cache = image_cache
   )
   shiny::shinyApp(ui = ui, server = server)
