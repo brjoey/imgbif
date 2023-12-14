@@ -1,4 +1,4 @@
-server <- function(firstRow, nRow, labelBtn, multimedia, identifier_label, backupDir, classSize, labelId, label, backupInterval, pb_values, multi_label, pbID, image_cache) {
+server.imgbif_app <- function(firstRow, nRow, labelBtn, multimedia, identifier_label, backupDir, classSize, labelId, label, backupInterval, pb_values, multi_label, pbID, image_cache) {
   server <- function(input, output, session) {
     currentRow <- shiny::reactiveValues(number = firstRow)
 
