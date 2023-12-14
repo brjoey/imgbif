@@ -1,5 +1,4 @@
 try2read <- function(identifier = URL) {
-
   call_useragent <- round(runif(1, min = 1, max = length(useragent)))
   ua <- httr::user_agent(useragent[call_useragent])
 
@@ -24,13 +23,10 @@ try2read <- function(identifier = URL) {
         },
         silent = TRUE
       )
-
-      if (is(image, "try-error")) {
-        return(image)
-      }
     }
+    return(image)
   } else {
-    image <- "ERROR"
+    image <- "try-error"
+    return(image)
   }
-  image
 }

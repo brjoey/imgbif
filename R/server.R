@@ -2,13 +2,15 @@ server <- function(firstRow, nRow, labelBtn, multimedia, identifier_label, backu
   server <- function(input, output, session) {
     currentRow <- shiny::reactiveValues(number = firstRow)
 
-    maxLrow <- 1
 
     trigger <- shiny::reactiveValues(activate = 0)
     trigger$activate <- 1
 
+
     shiny::observe({
       trigger$activate
+
+
       if (currentRow$number == (nRow + 1)) {
         shiny::showNotification("You labeled the last image. \n
                                 Closing the app now.",
@@ -28,7 +30,6 @@ server <- function(firstRow, nRow, labelBtn, multimedia, identifier_label, backu
       } else {
         image <- try2read(identifier = multimedia$identifier[currentRow$number])
 
-        image_cache[[1]] <<- image
 
         while (is(image, "try-error")) {
           notification <- shiny::showNotification("Trying to read image from URL.\n
@@ -46,15 +47,19 @@ server <- function(firstRow, nRow, labelBtn, multimedia, identifier_label, backu
           on.exit(shiny::removeNotification(notification), add = TRUE)
         }
 
+
         enableBServer(label2enable = labelBtn)
+
 
         output$ImagePlot <- shiny::renderPlot({
           magick::image_ggplot(image)
         })
 
+
         output$gbifID <- shiny::renderText({
           multimedia$gbifID[currentRow$number]
         })
+
 
         try_created <- try({
           (format(as.Date(multimedia$created[currentRow$number]), "%d. %b %Y"))
@@ -64,24 +69,29 @@ server <- function(firstRow, nRow, labelBtn, multimedia, identifier_label, backu
           output$date <- shiny::renderText({
             try_created
           })
-        } else {
-          output$date <- shiny::renderText({
-            "Unkown"
-          })
-        }
+         } #else {
+        #   output$date <- shiny::renderText({
+        #     "Unkown"
+        #   })
+        # }
+
 
         assigned_label_txt <- try({
           identifier_label[[currentRow$number]]
         })
-        if (!is(try_created, "try-error")) {
+
+        if (!is(assigned_label_txt, "try-error")) {
           output$assigned_label <- shiny::renderText({
             assigned_label_txt
           })
-        } else {
-          output$assigned_label <- shiny::renderText({
-            "Unknown"
-          })
-        }
+         } # else {
+        #   output$assigned_label <- shiny::renderText({
+        #     "Unknown"
+        #   })
+        # }
+
+
+        image_cache[[1]] <<- image
       }
     })
 
