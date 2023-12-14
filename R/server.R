@@ -95,14 +95,14 @@ server <- function(firstRow, nRow, labelBtn, multimedia, identifier_label, backu
 
           identifier_label[[currentRow$number]] <<- label[index]
 
-          lapply(seq_along(pbID), function(j) {
-            shinyWidgets::updateProgressBar(
-              id = pbID[j],
-              session = session,
-              value = (pb_values[[j]] + input[[labelId[j]]]),
-              total = classSize
-            )
-          })
+          # lapply(seq_along(pbID), function(j) {
+          #   shinyWidgets::updateProgressBar(
+          #     id = pbID[j],
+          #     session = session,
+          #     value = (pb_values[[j]] + input[[labelId[j]]]),
+          #     total = classSize
+          #   )
+          # })
 
           currentRow$number <- shiny::isolate(currentRow$number) + 1
 
@@ -126,18 +126,18 @@ server <- function(firstRow, nRow, labelBtn, multimedia, identifier_label, backu
 
           identifier_label[[currentRow$number]] <<- input[["checkbox"]]
 
-          lapply(seq_along(pb_values), function(i) {
-            pb_values[[i]] <<- pb_values[[i]] + 1 * (label[[i]] %in% input[["checkbox"]])
-          })
-
-          lapply(seq_along(pbID), function(j) {
-            shinyWidgets::updateProgressBar(
-              id = pbID[j],
-              session = session,
-              value = pb_values[[j]],
-              total = classSize
-            )
-          })
+          # lapply(seq_along(pb_values), function(i) {
+          #   pb_values[[i]] <<- pb_values[[i]] + 1 * (label[[i]] %in% input[["checkbox"]])
+          # })
+          #
+          # lapply(seq_along(pbID), function(j) {
+          #   shinyWidgets::updateProgressBar(
+          #     id = pbID[j],
+          #     session = session,
+          #     value = pb_values[[j]],
+          #     total = classSize
+          #   )
+          # })
 
           shiny::updateCheckboxGroupInput(
             inputId = "checkbox",
@@ -190,6 +190,35 @@ server <- function(firstRow, nRow, labelBtn, multimedia, identifier_label, backu
         disableBServer(label2disable = labelBtn)
         currentRow$number <- shiny::isolate(currentRow$number) + 1
         trigger$activate <- 1
+      }
+    })
+
+
+    shiny::observeEvent(input$currentTab, {
+      if (input$currentTab == "Progress") {
+        if (!multi_label) {
+          lapply(seq_along(pbID), function(j) {
+            shinyWidgets::updateProgressBar(
+              id = pbID[j],
+              session = session,
+              value = (pb_values[[j]] + input[[labelId[j]]]),
+              total = classSize
+            )
+          })
+        } else {
+          lapply(seq_along(pb_values), function(i) {
+            pb_values[[i]] <<- pb_values[[i]] + 1 * (label[[i]] %in% input[["checkbox"]])
+          })
+
+          lapply(seq_along(pbID), function(j) {
+            shinyWidgets::updateProgressBar(
+              id = pbID[j],
+              session = session,
+              value = pb_values[[j]],
+              total = classSize
+            )
+          })
+        }
       }
     })
 

@@ -1,6 +1,7 @@
 ui <- function(label, multi_label, jscode, pbID, classSize) {
   ui <- shiny::navbarPage(
     title = "Classification App",
+    id = "currentTab",
     shiny::tabPanel(
       title = "Label",
       shiny::sidebarLayout(
