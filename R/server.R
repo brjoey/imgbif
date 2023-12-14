@@ -196,29 +196,19 @@ server <- function(firstRow, nRow, labelBtn, multimedia, identifier_label, backu
 
     shiny::observeEvent(input$currentTab, {
       if (input$currentTab == "Progress") {
-        if (!multi_label) {
-          lapply(seq_along(pbID), function(j) {
-            shinyWidgets::updateProgressBar(
-              id = pbID[j],
-              session = session,
-              value = (pb_values[[j]] + input[[labelId[j]]]),
-              total = classSize
-            )
-          })
-        } else {
-          lapply(seq_along(pb_values), function(i) {
-            pb_values[[i]] <<- pb_values[[i]] + 1 * (label[[i]] %in% input[["checkbox"]])
-          })
+        pb_values <- vector(mode = "integer", length = length(label))
+        pb_values <- lapply(label, function(x) {
+          sum(x == identifier_label)
+        })
 
-          lapply(seq_along(pbID), function(j) {
-            shinyWidgets::updateProgressBar(
-              id = pbID[j],
-              session = session,
-              value = pb_values[[j]],
-              total = classSize
-            )
-          })
-        }
+        lapply(seq_along(pbID), function(j) {
+          shinyWidgets::updateProgressBar(
+            id = pbID[j],
+            session = session,
+            value = pb_values[[j]],
+            total = classSize
+          )
+        })
       }
     })
 
