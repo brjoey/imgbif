@@ -12,7 +12,7 @@ Pre-process and write images from GBIF multimedia files and classify them manual
 
 ------------------------------------------------------------------------
 
-### Install
+### install
 
 Install the package `devtools` if not already done.
 
@@ -26,7 +26,9 @@ Use `devtools::install_git()` to install the package from the link to the github
 devtools::install_git("https://github.com/brjoey/imgbif.git")
 ```
 
-### Use
+---
+
+### use
 
 The prerequisite is that you have already downloaded a data set from the [GBIF database](https://www.gbif.org/) directly or with the [rgbif](https://www.gbif.org/tool/81747/rgbif) R package as a Darwin Core Archive.
 
@@ -37,7 +39,9 @@ The folder content of such download from the [GBIF database](https://www.gbif.or
 
 The relevant text files, namely "multimedia" and "occurrence" are highlighted in blue. This are the files that contain all the necessary information that is needed in the following steps.
 
-#### Pre-process
+---
+
+#### pre-process
 
 The `preprocess_multimedia` function can be used to prepare the multimedia file for classification with the classification app. Pre-processing consists of removing occurrences that either do not have a gbifID (occurrence ID) or do not contain a link to an image. In addition, URLs to images in the iNaturalist database are repaired if necessary. Optionally, if the downloaded occurrence file includes publisher information, images from Herbarium databases can be removed. In addition, it is possible to select whether and which image licences are to be removed. Mind that, while observations found in GBIF are usually published under a "CC" licence, this is not necessarily the case for the images contained in the observations. Possible arguments are 'all rights reserved', 'by-sa', 'by-nc', 'NA', and 'unclear'. The Terms of use
 of GBIF with regard to Data licensing can be found [here](https://www.gbif.org/terms).
@@ -57,6 +61,8 @@ See the help file for more information about `preprocess_multimedia`.
 ?preprocess_multimedia
 ```
 
+---
+
 #### write images
 
 Use `write_identifier` to save images from URLs in the GBIF multimedia file locally. The function uses the `foreach` and `magick` packages to write the images with parallel processing into the destination folder. The images are labelled with the gbifID and if available the label that was assigned when classifying with the classification app.
@@ -73,7 +79,16 @@ See the help file for more information about `write_identifier`.
 ```         
 ?write_identifier
 ```
+---
+
 #### setup the classification app
+
+This package contains two Shiny apps. The `imgbif_app` is more accustomed to read images from URLs in a GBIF multimedia file,
+the `img_app` is a much simpler version that can be used to classify images that are already downloaded and stored locally, for example with `imgbif::write_identifier`. For more details see below.
+
+---
+
+#### imgbif_app
 
 The app, launched with `imgbif_app`, enables manual classification of images from URLs in a GBIF multimedia file. The argument __"multimedia"__ requires a path to the GBIF multimedia file (with one of the following extensions: "txt", "csv", or "feather") or a `data.frame`/`tibble`.
 
@@ -105,7 +120,6 @@ See the help file for more information about `imgbif_app`.
 ?imgbif_app
 ```
 
----
 
 In case of __"multi_label = TRUE"__ the user interface of the app looks like that (with the choice between the labels of __"label"__):
 
@@ -117,5 +131,32 @@ In case of __"multi_label = FALSE"__ the user interface of the app looks like th
 ![](images/Screenshot_App_multi_label=FALSE.png)
 
 
-Rights holder of image in displayed screenhots: Beate & Heinz Beyerlein (CC BY-NC); https://www.inaturalist.org/photos/1790518
+Rights holder of image in displayed screenshots: Beate & Heinz Beyerlein (CC BY-NC); https://www.inaturalist.org/photos/1790518
 
+---
+
+#### img_app
+The `img_app` can be used to classify images that are stored locally. The app reads the images that are stored in the specified source directory.  The argument __"sourceDir"__ takes the path to this directory.
+
+__"label"__ expects a character vector that contains the label for each class. The app creates a folder for each label inside "sourceDir" and copies the images from "sourceDir" into the corresponding subfolder. Afterwards, the image is removed from "sourceDir".
+
+It is possible to copy the image either into one label folder or multiple label folder, this depends on the argument __"multi_label"__. By default, __"multi_label"__ is set to `FALSE`.
+
+__"classSize"__ expects a numeric value with the desired number of images per class (label) for tracking purposes.
+
+
+```
+img_app(
+  sourceDir = "Dir/to/images",
+  label = c("flowering", "fruiting"),
+  multi_label = FALSE,
+  classSize = 100
+)
+```
+
+
+See the help file for more information about `imgbif_app`.
+
+```         
+?img_app
+```
