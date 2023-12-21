@@ -136,9 +136,9 @@ Rights holder of image in displayed screenshots: Beate & Heinz Beyerlein (CC BY-
 ---
 
 #### img_app
-The `img_app` can be used to classify images that are stored locally. The app reads the images that are stored in the specified source directory.  The argument __"sourceDir"__ takes the path to this directory.
+The `img_app` is designed to classify and organize images stored locally. The app reads the images that are stored in the specified source directory.  The argument __"sourceDir"__ takes the path to this directory.
 
-__"label"__ expects a character vector that contains the label for each class. The app creates a folder for each label inside "sourceDir" and copies the images from "sourceDir" into the corresponding subfolder. Afterwards, the image is removed from "sourceDir".
+__"label"__ requires a character vector that contains the label for each class. The app creates a subfolder for each label inside "sourceDir" and copies the images from "sourceDir" into the corresponding subfolder. Afterwards, the image is removed from "sourceDir".
 
 It is possible to copy the image either into one label folder or multiple label folder, this depends on the argument __"multi_label"__. By default, __"multi_label"__ is set to `FALSE`.
 
