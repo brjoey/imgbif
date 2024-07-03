@@ -161,7 +161,7 @@ Rights holder of image in displayed screenshots: Beate & Heinz Beyerlein (CC BY-
 
 The userinterface of the multi image app looks like that:
 
-![](images/imgbif_app.multi_image.selected_image)
+![](images/imgbif_app.multi_image.selected_image.png)
 Katherine Thorington (CC BY-NC)
 
 
