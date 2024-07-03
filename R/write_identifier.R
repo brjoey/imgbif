@@ -49,7 +49,7 @@ write_identifier <- function(multimedia,
     stop("The specified destination directory does not exist: ", destDir)
   }
 
-  if (!format %in% c("png", "jpeg", "gif", "rgb", "rgba")) {
+  if (!(format %in% c("png", "jpeg", "gif", "rgb", "rgba"))) {
     stop("Invalid format. Supported formats are png, jpeg, gif, rgb, and rgba.")
   }
 
@@ -94,7 +94,7 @@ write_identifier <- function(multimedia,
                   destDir,
                   paste0(
                     multimedia[which(multimedia$identifier == URL), "gbifID"],
-                    "_",
+                    "-",
                     multimedia[which(multimedia$identifier == URL), "label"],
                     ".",
                     format
@@ -105,7 +105,7 @@ write_identifier <- function(multimedia,
                     destDir,
                     paste0(
                       multimedia[which(multimedia$identifier == URL), "gbifID"],
-                      "_",
+                      "-",
                       multimedia[which(multimedia$identifier == URL), "label"],
                       " (",
                       (str_detect_sum + 1),
@@ -148,6 +148,7 @@ write_identifier <- function(multimedia,
         }
       }
     }
+    Sys.sleep(2)
   }
   doParallel::stopImplicitCluster()
 
