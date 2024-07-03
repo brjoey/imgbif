@@ -27,8 +27,9 @@
 preprocess_multimedia <- function(multimedia,
                                   occurrence,
                                   herbarium.rm = TRUE,
-                                  license.rm = c("all rights reserved", "by-sa", "by-nc", "NA", "unclear")
-                                  ) {
+                                  license.rm = c("all rights reserved", "by-sa", "by-nc", "NA", "unclear"),
+                                  date.rm = TRUE,
+                                  time.rm = FALSE) {
   if (missing(multimedia)) {
     stop("Multimedia data frame or path to multimedia.txt file is required")
   } else {
@@ -106,6 +107,30 @@ preprocess_multimedia <- function(multimedia,
 
 
   multimedia <- replace_static.inaturalist(m.df = multimedia)
+
+
+  if (date.rm && time.rm) {
+    multimedia <- remove_date(
+      m.df = multimedia,
+      time.rm = TRUE
+    )
+  }
+
+  if (date.rm && !time.rm) {
+    multimedia <- remove_date(
+      m.df = multimedia,
+      time.rm = FALSE
+    )
+  }
+
+  if (!date.rm && time.rm) {
+    multimedia <- remove_date(
+      m.df = multimedia,
+      date.rm = FALSE,
+      time.rm = TRUE
+    )
+  }
+
 
 
   return(multimedia)

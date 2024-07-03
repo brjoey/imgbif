@@ -1,4 +1,4 @@
-ui.imgbif_app <- function(label, multi_label, jscode, pbID, classSize) {
+ui.imgbif_app <- function(label, multi_label, pbID, classSize, brush_image, slider, sliderRange) {
   ui <- shiny::navbarPage(
     title = "Classification App",
     id = "currentTab",
@@ -26,7 +26,7 @@ ui.imgbif_app <- function(label, multi_label, jscode, pbID, classSize) {
             shiny::tags$style(htmltools::HTML("
              .button-container .btn {
                 display: block;
-                width: 100%;
+                width: 100%;s
                 margin-bottom: 10px;
             }
         "))
@@ -41,6 +41,14 @@ ui.imgbif_app <- function(label, multi_label, jscode, pbID, classSize) {
             labelCbxUI = label,
             conditionCbxUI = multi_label
           ),
+        htmltools::hr(),
+          if (slider) {
+            shiny::sliderInput(
+              inputId = "slider", label = "Scale",
+              min = min(sliderRange), max = max(sliderRange),
+              value = sliderRange[!(sliderRange == min(sliderRange) | sliderRange == max(sliderRange))]
+            )
+          },
           htmltools::hr(),
           shiny::actionButton(
             inputId = "exclude",
@@ -52,7 +60,10 @@ ui.imgbif_app <- function(label, multi_label, jscode, pbID, classSize) {
             width = 3,
             shiny::column(
               width = 6,
-              shinyjs::extendShinyjs(text = jscode, functions = c("closeWindow")),
+              shinyjs::extendShinyjs(
+                text = "shinyjs.closeWindow = function() { window.close(); }",
+                functions = c("closeWindow")
+              ),
               shiny::actionButton(
                 inputId = "close",
                 label = "Close App",
@@ -95,7 +106,10 @@ ui.imgbif_app <- function(label, multi_label, jscode, pbID, classSize) {
         shiny::mainPanel(
           width = 9,
           htmltools::br(),
-          shiny::plotOutput(outputId = "ImagePlot")
+          shiny::plotOutput(
+            outputId = "ImagePlot",
+            brush = if (brush_image) shiny::brushOpts(id = paste0("ImagePlot", "_brush"), stroke = "#BB29BB", fill = "#C5B4E3") else NULL
+          )
         ),
         position = "left",
         fluid = TRUE

@@ -1,10 +1,16 @@
-backupDataServer <- function(data, label_list, backupPath) {
-  new_label <- unlist(lapply(label_list, paste, collapse = ", "))
-  new_label[new_label == ""] <- NA_character_
-  data$label <- new_label
+backupDataServer <- function(data, backupPath, backup_cache) {
   try2write <- try(
     {
-      feather::write_feather(data, file.path(backupPath, "multimedia.feather"))
+      backupTime <- Sys.time() |> format("%Y-%m-%d %H-%M-%S")
+      backup_file <- paste0("multimedia-", backupTime, ".feather")
+
+      backup2remove <- backup_cache[3]
+      if (file.exists(file.path(backupPath, backup2remove)) && backup_cache[3] != "") {
+        file.remove(file.path(backupPath, backup2remove))
+      }
+      backup_cache <- c(backup_file, backup_cache[1:2])
+
+      feather::write_feather(data, file.path(backupPath, backup_file))
     },
     silent = TRUE
   )
