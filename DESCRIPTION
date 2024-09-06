@@ -27,7 +27,6 @@ Imports:
     digest,
     feather,
     ggplot2,
-    ggsave,
     htmltools,
     lubridate,
     shiny,
