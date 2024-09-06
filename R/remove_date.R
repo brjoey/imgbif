@@ -16,9 +16,6 @@
 #' @importFrom lubridate day
 #' @importFrom lubridate month
 #'
-#' @return
-#'
-#' @examples
 remove_date <- function(m.df = multimedia, date.rm = TRUE, time.rm = FALSE) {
   if (date.rm) {
     na_idx <- is.na(m.df[, "created"])

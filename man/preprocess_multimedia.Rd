@@ -8,7 +8,9 @@ preprocess_multimedia(
   multimedia,
   occurrence,
   herbarium.rm = TRUE,
-  license.rm = c("all rights reserved", "by-sa", "by-nc", "NA", "unclear")
+  license.rm = c("all rights reserved", "by-sa", "by-nc", "NA", "unclear"),
+  date.rm = TRUE,
+  time.rm = FALSE
 )
 }
 \arguments{

@@ -27,7 +27,7 @@
 #' @import tools
 #' @import ggplot2 ggsave
 #' @export
-imgbif_app.dev <- function(multimedia,
+imgbif_app <- function(multimedia,
                            classSize = 100,
                            label,
                            multi_label = FALSE,
