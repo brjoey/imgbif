@@ -25,7 +25,8 @@
 #' @import shinyWidgets
 #' @import stringr
 #' @import tools
-#' @import ggplot2 ggsave
+#' @import methods
+#' @import utils
 #' @export
 imgbif_app <- function(multimedia,
                            classSize = 100,
@@ -105,7 +106,7 @@ imgbif_app <- function(multimedia,
     }
     lapply(seq_along(sliderRange), \(x) {
       if (!is.integer(x)) {
-        stop("sliderRange contains at least one non integer element´.")
+        stop("sliderRange contains at least one non integer element.")
       }
     })
   }

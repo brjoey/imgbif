@@ -7,6 +7,8 @@
 #' @param occurrence A `data.frame` containing the occurrence data or the path to the occurrence file (with the extension "txt", "csv", or "feather").
 #' @param herbarium.rm A `boolean` indicating whether to remove Herbarium database records (the default is `TRUE`). When set to `FALSE`, Herbarium data is retained.
 #' @param license.rm A `character vector` specifying the license types to be excluded. Common licenses include 'all rights reserved', 'by-sa', 'by-nc', 'NA', and 'unclear'.
+#' @param date.rm A `logical` value indicating whether to remove rows with missing date information. If `TRUE`, rows with `NA` values in the "created" column will be removed. Default is `TRUE`.
+#' @param time.rm A `logical` value indicating whether to remove rows with missing time specifications or suspicious date and time combinations. If `TRUE`, rows where the date is 01.01.yyyy and the time is 00:00:00 will be removed. Default is `FALSE`.
 #'
 #' @return A `data.frame` containing the pre-processed multimedia data.
 #' @export

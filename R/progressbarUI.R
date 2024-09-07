@@ -1,6 +1,4 @@
-progressbarUI <- function(label = labelUI,
-                          pbId = pbIdUI,
-                          classSize = classSizeUI) {
+progressbarUI <- function(label, pbId, classSize) {
   pb <- lapply(pbId, function(id) {
     shinyWidgets::progressBar(id,
       value = 0,

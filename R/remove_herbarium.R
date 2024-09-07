@@ -6,8 +6,7 @@
 #' @param o.df A `data.frame` containing the occurrence data.
 #' @return A `data.frame` where Herbarium database entries have been removed from the multimedia file.
 #' @note This function assumes that the `publisher` column in `o.df` contains Herbarium information. This is not always the case.
-remove_herbarium <- function(m.df = multimedia,
-                             o.df = occurrence) {
+remove_herbarium <- function(m.df, o.df) {
   if (!"publisher" %in% names(o.df)) {
     warning("The occurrence data frame does not contain a 'publisher' column.")
     return(m.df)

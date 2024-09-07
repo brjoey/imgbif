@@ -4,14 +4,20 @@
 \alias{remove_date}
 \title{Remove Dates without Time Specification and Dates recorded on 01.01. of a year at 00.00.00.}
 \usage{
-remove_date(m.df = multimedia, date.rm = TRUE, time.rm = FALSE)
+remove_date(m.df, date.rm = TRUE, time.rm = FALSE)
 }
 \arguments{
-\item{m.df}{A `data.frame` containing the multimedia data.}
+\item{m.df}{A `data.frame` containing the multimedia data. It must include a column named "created" with date-time information as character strings.}
 
-\item{rm_wo_times}{A `boolean` value to remove dates without time specifications. If `TRUE`, the dates will be removed. The default is `FALSE`.}
+\item{date.rm}{A `logical` value indicating whether to remove rows with missing date information. If `TRUE`, rows with `NA` values in the "created" column will be removed. Default is `TRUE`.}
+
+\item{time.rm}{A `logical` value indicating whether to remove rows with missing time specifications or suspicious date and time combinations. If `TRUE`, rows where the date is 01.01.yyyy and the time is 00:00:00 will be removed. Default is `FALSE`.}
+}
+\value{
+A `data.frame` with rows removed according to the specified date and time criteria.
 }
 \description{
-The function removes images without a specified date of creation (if date.rm = TRUE)
-and removes images without a specified time and suspicious date and time combinations, i. e. 01.01.yyyy 00:00:00.
+The function removes images based on their date of creation. Specifically:
+- Removes images without a specified date of creation if `date.rm = TRUE`.
+- Removes images recorded with suspicious date and time combinations, i.e., dates with 01.01.yyyy and time 00:00:00, if `time.rm = TRUE`.
 }

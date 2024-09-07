@@ -4,7 +4,7 @@
 #'
 #' @param m.df A `data.frame` containing the multimedia data.
 #' @return A `data.frame` without records where the format is a JSON application.
-remove_format <- function(m.df = multimedia) {
+remove_format <- function(m.df) {
   index <- stringr::str_detect(m.df$format,
     "application",
     negate = TRUE

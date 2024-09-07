@@ -1,6 +1,6 @@
 Package: imgbif
 Type: Package
-Title: Pre-process and write images from GBIF multimedia files and classify them manually with Shiny apps.
+Title: Pre-process and write images from GBIF multimedia files and classify them manually with Shiny apps
 Version: 0.1.0
 Author: Brenton Bruns
 Maintainer: Brenton Bruns <brenton.joey.bruns@pyhsik.uni-giessen.de>
@@ -26,9 +26,12 @@ Imports:
     stringr,
     digest,
     feather,
-    ggplot2,
     htmltools,
     lubridate,
     shiny,
     shinyWidgets,
-    shinyjs
+    shinyjs,
+    methods,
+    utils,
+    ggplot2,
+    purrr

@@ -186,9 +186,8 @@ server.imgbif_app_multi.image <- function(firstRow, nRow, labelBtn, multimedia, 
                 currentRows = shiny::isolate(current$Rows),
                 imageSelection = shiny::isolate(cache$imageSelection),
                 multimedia = multimedia,
-                backupDir = backupDir,
-                label = label[index]
-              )
+                backupDir = backupDir
+                )
             }
 
             imgPlotName <- paste0("img", multimedia$gbifID[shiny::isolate(current$Rows[1])], "-", i)

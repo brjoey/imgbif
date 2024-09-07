@@ -4,7 +4,7 @@
 #'
 #' @param m.df A `data.frame` containing the multimedia data.
 #' @return A `data.frame` with the updated URLs in the identifier column.
-replace_static.inaturalist <- function(m.df = multimedia) {
+replace_static.inaturalist <- function(m.df) {
   if (!"identifier" %in% names(m.df)) {
     stop("The data frame does not contain an 'identifier' column.")
   }
