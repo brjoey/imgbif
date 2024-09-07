@@ -8,7 +8,7 @@
 #' Accepted values include 'all rights reserved', 'by-sa', 'by-nc', 'NA', and 'unclear'.
 #'
 #' @return A `data.frame` with records filtered according to the specified license criteria.
-remove_license <- function(m.df = multimedia.df,
+remove_license <- function(m.df,
                            license = c("all rights reserved", "by-sa", "by-nc", "NA", "unclear")
                            ) {
 

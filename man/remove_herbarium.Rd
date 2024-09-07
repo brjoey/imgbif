@@ -4,7 +4,7 @@
 \alias{remove_herbarium}
 \title{Remove Herbarium Databases from Multimedia Data Frame}
 \usage{
-remove_herbarium(m.df = multimedia, o.df = occurrence)
+remove_herbarium(m.df, o.df)
 }
 \arguments{
 \item{m.df}{A `data.frame` containing the multimedia data.}

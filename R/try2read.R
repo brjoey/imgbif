@@ -1,4 +1,8 @@
-try2read <- function(identifier = URL) {
+#' try to read the images from URL in multimedia file
+#'
+#' @param identifier The image URL.
+#' @import stats
+try2read <- function(identifier) {
   call_useragent <- round(runif(1, min = 1, max = length(useragent)))
   ua <- httr::user_agent(useragent[call_useragent])
 

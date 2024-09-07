@@ -8,7 +8,9 @@ preprocess_multimedia(
   multimedia,
   occurrence,
   herbarium.rm = TRUE,
-  license.rm = c("all rights reserved", "by-sa", "by-nc", "NA", "unclear")
+  license.rm = c("all rights reserved", "by-sa", "by-nc", "NA", "unclear"),
+  date.rm = TRUE,
+  time.rm = FALSE
 )
 }
 \arguments{
@@ -19,6 +21,10 @@ preprocess_multimedia(
 \item{herbarium.rm}{A `boolean` indicating whether to remove Herbarium database records (the default is `TRUE`). When set to `FALSE`, Herbarium data is retained.}
 
 \item{license.rm}{A `character vector` specifying the license types to be excluded. Common licenses include 'all rights reserved', 'by-sa', 'by-nc', 'NA', and 'unclear'.}
+
+\item{date.rm}{A `logical` value indicating whether to remove rows with missing date information. If `TRUE`, rows with `NA` values in the "created" column will be removed. Default is `TRUE`.}
+
+\item{time.rm}{A `logical` value indicating whether to remove rows with missing time specifications or suspicious date and time combinations. If `TRUE`, rows where the date is 01.01.yyyy and the time is 00:00:00 will be removed. Default is `FALSE`.}
 }
 \value{
 A `data.frame` containing the pre-processed multimedia data.

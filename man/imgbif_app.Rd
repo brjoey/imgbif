@@ -10,7 +10,13 @@ imgbif_app(
   label,
   multi_label = FALSE,
   backupDir,
-  backupInterval = 1
+  backupInterval = 1,
+  image_format = "png",
+  write_image = FALSE,
+  multi_image = TRUE,
+  brush_image = FALSE,
+  slider = FALSE,
+  sliderRange = NULL
 )
 }
 \arguments{
@@ -26,6 +32,18 @@ The app launches with check boxes if "multi_label = TRUE" and with action button
 \item{backupDir}{A `character` string that specifies the path to the directory for storing backups and the final file.}
 
 \item{backupInterval}{A `numeric` value that indicates the interval for automatic backups of the multimedia file (in minutes).}
+
+\item{image_format}{A character vector specifying the image format such as 'png' or 'jpeg'. 'png' by default.}
+
+\item{write_image}{A logical value indicating whether the selected images should be written to disk into the backup directory. Default is FALSE.}
+
+\item{multi_image}{A logical value indicating whether the multi-image app that displays all images of a gbifID at once should be selected, or the single-image app. Default is FALSE.}
+
+\item{brush_image}{A logical value. If TRUE, the user can draw a rectangle on the image and store the edges of the frame. Default is FALSE.}
+
+\item{slider}{A logical value indicating whether a slider should be displayed in the respective app. Default is FALSE.}
+
+\item{sliderRange}{A numeric vector containing the minimum, default value, and maximum value of the slider.}
 }
 \value{
 A `shiny` app for image classification is launched, and a modified `data.frame` is written into "backupDir".
@@ -35,16 +53,4 @@ Sets up and launches a Shiny application to manually classify images from a GBIF
 }
 \note{
 The modified `data.frame` is written using the `feather` package. The assigned labels are stored in a new "label" column as character vectors.
-}
-\examples{
-\dontrun{
-imgbif_app(
-  multimedia = "path/to/multimedia.txt",
-  classSize = 100,
-  label = c("flowering", "fruiting"),
-  multi_label = FALSE,
-  backupDir = "path/to/backup",
-  backupInterval = 1
-)
-}
 }

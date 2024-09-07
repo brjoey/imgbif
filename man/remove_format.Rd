@@ -4,7 +4,7 @@
 \alias{remove_format}
 \title{Remove Records with JSON Application Format}
 \usage{
-remove_format(m.df = multimedia)
+remove_format(m.df)
 }
 \arguments{
 \item{m.df}{A `data.frame` containing the multimedia data.}

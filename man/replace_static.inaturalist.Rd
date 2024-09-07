@@ -4,7 +4,7 @@
 \alias{replace_static.inaturalist}
 \title{Replace Static iNaturalist URLs}
 \usage{
-replace_static.inaturalist(m.df = multimedia)
+replace_static.inaturalist(m.df)
 }
 \arguments{
 \item{m.df}{A `data.frame` containing the multimedia data.}
