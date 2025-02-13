@@ -5,7 +5,7 @@
 #' @param multimedia A `data.frame` containing the multimedia data or a string with the path to the multimedia file.
 #' @param destDir A string with the path to the destination directory where images should be saved.
 #' @param format A string specifying the output format of the images, with supported formats including "png", "jpeg", "gif", "rgb", or "rgba". Default is "png".
-#' @importFrom foreach %dopar%
+#' @import foreach
 #' @importFrom parallelly availableCores
 #' @importFrom doParallel registerDoParallel
 #' @importFrom httr user_agent
