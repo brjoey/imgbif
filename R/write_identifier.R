@@ -5,6 +5,8 @@
 #' @param multimedia A `data.frame` containing the multimedia data or a string with the path to the multimedia file.
 #' @param destDir A string with the path to the destination directory where images should be saved.
 #' @param format A string specifying the output format of the images, with supported formats including "png", "jpeg", "gif", "rgb", or "rgba". Default is "png".
+#' @param return_results Logical indicating whether to return a list containing detailed results of each download attempt, including error messages. Default is FALSE.
+#' @return If return_results is TRUE, returns a list where each element contains 'success' (logical) and either 'path' (for successful downloads) or 'error' (for failures). If FALSE, returns nothing.
 #' @import foreach
 #' @importFrom parallelly availableCores
 #' @importFrom doParallel registerDoParallel
@@ -21,7 +23,8 @@
 #' }
 write_identifier <- function(multimedia,
                              destDir,
-                             format = "png") {
+                             format = "png",
+                             return_results = FALSE) {
   if (missing(multimedia)) {
     stop("Multimedia data frame or path to multimedia.txt file is required")
   } else {
@@ -141,4 +144,8 @@ write_identifier <- function(multimedia,
 
   successful <- sum(sapply(results, function(x) x$success))
   message(successful, " of ", nrow(multimedia), " images successfully downloaded and saved.")
+
+  if (return_results) {
+    return(results)
+  }
 }
