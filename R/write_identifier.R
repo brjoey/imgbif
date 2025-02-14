@@ -64,95 +64,81 @@ write_identifier <- function(multimedia,
   foreach_list <- foreach::foreach(URL = URL_list, .packages = c("httr", "rvest", "magick")) %dopar% {
     index_ua <- round(runif(1, min = 1, max = length(useragent)))
     ua <- httr::user_agent(useragent[index_ua])
-    session_with_ua <- try({
-      rvest::session(URL, ua)
-    })
 
 
-    if (is(session_with_ua, "try-error")) {
-      img <- geterrmessage()
-    } else {
-      if (session_with_ua$response$status_code == 200) {
+    tryCatch(
+      {
+        session_with_ua <- rvest::session(URL, ua)
+
+
+        if (is(session_with_ua, "try-error")) {
+          return(list(success = FALSE, error = geterrmessage()))
+        }
+
+        if (session_with_ua$response$status_code != 200) {
+          return(list(success = FALSE, error = paste0("HTTP error: ", session_with_ua$response$status_code)))
+        }
+
         content_type <- session_with_ua$response$headers$`content-type`
 
-        if (stringr::str_detect(content_type, "image[:graph:]")) {
-          img <- try(
-            {
-              content <- session_with_ua$response$content
-              magick::image_read(content)
-            },
-            silent = TRUE
-          )
-          try(
-            {
-              feather_files <- list.files(path = destDir, pattern = paste0("\\.", format, "$"))
-              files <- stringr::str_remove(feather_files, ".feather")
-              str_detect_sum <- sum(stringr::str_detect(files, as.character(multimedia[which(multimedia$identifier == URL), "gbifID"])))
-              if ("label" %in% names(multimedia)) {
-                if (str_detect_sum == 0) {
-                image_path <- file.path(
-                  destDir,
-                  paste0(
-                    multimedia[which(multimedia$identifier == URL), "gbifID"],
-                    "-",
-                    multimedia[which(multimedia$identifier == URL), "label"],
-                    ".",
-                    format
-                  )
-                )
-                } else {
-                  image_path <- file.path(
-                    destDir,
-                    paste0(
-                      multimedia[which(multimedia$identifier == URL), "gbifID"],
-                      "-",
-                      multimedia[which(multimedia$identifier == URL), "label"],
-                      " (",
-                      (str_detect_sum + 1),
-                      ")",
-                      ".",
-                      format
-                    )
-                  )
-                }
-              } else {
-                if (str_detect_sum == 0) {
-                  image_path <- file.path(
-                    destDir,
-                    paste0(
-                      multimedia[which(multimedia$identifier == URL), "gbifID"],
-                      ".",
-                      format
-                    )
-                  )
-                } else {
-                  image_path <- file.path(
-                    destDir,
-                    paste0(
-                      multimedia[which(multimedia$identifier == URL), "gbifID"],
-                      " (",
-                      (str_detect_sum + 1),
-                      ")",
-                      ".",
-                      format
-                    )
-                  )
-                }
-              }
-              magick::image_write(img,
-                path = image_path
-              )
-            },
-            silent = TRUE
-          )
+        if (!stringr::str_detect(content_type, "image[:graph:]")) {
+          return(list(success = FALSE, error = "Content is not an image"))
         }
+
+        content <- session_with_ua$response$content
+
+        img <- tryCatch(
+          {
+            magick::image_read(content)
+          },
+          error = function(e) {
+            return(NULL)
+          }
+        )
+
+        if (is.null(img)) {
+          return(list(success = FALSE, error = "Failed to download image data"))
+        }
+
+        base_filename <- if ("label" %in% names(multimedia)) {
+          paste0(
+            multimedia[which(multimedia$identifier == URL), "gbifID"],
+            "-",
+            multimedia[which(multimedia$identifier == URL), "label"]
+          )
+        } else {
+          as.character(multimedia[which(multimedia$identifier == URL), "gbifID"])
+        }
+
+        existing_files <- list.files(
+          path = destDir,
+          pattern = paste0("^", gsub("([.|()\\^{}+$*?]|\\[|\\])", "\\\\\\1", base_filename), ".*\\.", format, "$")
+        )
+
+        if (length(existing_files) > 0) {
+          image_path <- file.path(
+            destDir,
+            paste0(base_filename, " (", length(existing_files) + 1, ").", format)
+          )
+        } else {
+          image_path <- file.path(destDir, paste0(base_filename, ".", format))
+        }
+
+
+        magick::image_write(img, path = image_path)
+
+        Sys.sleep(2)
+        return(list(success = TRUE, path = image_path))
+      },
+      error = function(e) {
+        return(list(success = FALSE, error = as.character(e)))
       }
-    }
-    Sys.sleep(2)
+    )
   }
+
   doParallel::stopImplicitCluster()
 
-  successful <- length(foreach_list)
-  nrow0 <- nrow(multimedia)
-  message(successful, " of ", nrow0, " images created.")
+
+  successful <- sum(sapply(results, function(x) x$success))
+  message(successful, " of ", nrow(multimedia), " images successfully downloaded and saved.")
 }
