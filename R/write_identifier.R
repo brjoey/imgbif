@@ -61,7 +61,7 @@ write_identifier <- function(multimedia,
 
   URL_list <- multimedia$identifier
 
-  foreach_list <- foreach::foreach(URL = URL_list, .packages = c("httr", "rvest", "magick")) %dopar% {
+  results <- foreach::foreach(URL = URL_list, .packages = c("httr", "rvest", "magick")) %dopar% {
     index_ua <- round(runif(1, min = 1, max = length(useragent)))
     ua <- httr::user_agent(useragent[index_ua])
 
