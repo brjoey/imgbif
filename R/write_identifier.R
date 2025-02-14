@@ -104,11 +104,20 @@ write_identifier <- function(multimedia,
         }
 
         base_filename <- if ("label" %in% names(multimedia)) {
-          paste0(
-            multimedia[which(multimedia$identifier == URL), "gbifID"],
-            "-",
-            multimedia[which(multimedia$identifier == URL), "label"]
-          )
+          labels <- multimedia[which(multimedia$identifier == URL), "label"] |> unlist ()
+          if (length(labels) > 1) {
+            paste0(
+              multimedia[which(multimedia$identifier == URL), "gbifID"],
+              "-",
+              paste(labels, collapse = "_")
+            )
+          } else {
+            paste0(
+              multimedia[which(multimedia$identifier == URL), "gbifID"],
+              "-",
+              labels
+            )
+          }
         } else {
           as.character(multimedia[which(multimedia$identifier == URL), "gbifID"])
         }
