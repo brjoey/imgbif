@@ -26,6 +26,15 @@ Use `devtools::install_git()` to install the package from the link to the github
 devtools::install_git("https://github.com/brjoey/imgbif.git")
 ```
 
+Alternatively, it is possible to use `remotes` instead of `devtools`.
+
+```
+install.packages(“remotes”)
+```
+
+```
+remotes::install_github(“brjoey/imgbif”)
+```
 ---
 
 ### use
