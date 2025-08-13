@@ -104,6 +104,7 @@ imgbif::remove_duplicates(folder_path = "path/to/folder/with/images",
 
 This package contains two Shiny apps. The `imgbif_app` is more accustomed to read images from URLs in a GBIF multimedia file,
 the `img_app` is a much simpler version that can be used to classify images that are already downloaded and stored locally, for example with `imgbif::write_identifier`. For more details see below.
+
 ---
 
 #### imgbif_app
